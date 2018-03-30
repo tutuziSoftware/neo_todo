@@ -2,7 +2,7 @@
  * TODOリストの描画を行う関数です
  * @param todos 表示するデータ
  */
-function showTodoList(todos, sortTable, query){
+neo.showUserSortableList = function(todos, sortTable, query){
 	//TODO (低)todosとsortTableの整合性チェックを追加する
 
 	$(query+' .todo').remove();
@@ -25,7 +25,7 @@ function showTodoList(todos, sortTable, query){
 		//$('#todo_list').find('#now_list').after(todoTemplate);
 		todoTemplate.appendTo(query);
 	}
-}
+};
 
 
 function showTodoListHeaders(){

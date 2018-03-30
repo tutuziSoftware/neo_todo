@@ -1,6 +1,7 @@
 function listController(Sortable){
 	const sort = Sortable.new();
 	const query = '#'+Sortable.name;
+	const showList = neo['show'+Sortable.name+'List'];
 
 	sort.then(function(sortTable){
 		Todo.getAll().then(function(todos){
@@ -28,7 +29,7 @@ function listController(Sortable){
 				sortTable.save();
 			}
 
-			showTodoList(todos, sortTable, query);
+			showList(todos, sortTable, query);
 		}).catch(function(){
 			debugger;
 		});
