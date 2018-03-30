@@ -17,27 +17,42 @@ const TODO_HEADER_SETTINGS = [
 	},
 ];
 
-const TODO_PRIORITY = [
-	{
+const TODO_PRIORITY = {
+	1: {
 		id: 1,
-		name: '優先順なし'
+		name: '優先順なし',
+		toString:function(){
+			return this.id+"";
+		}
 	},
-	{
+	2: {
 		id: 2,
-		name: 'いつかやる'
+		name: 'いつかやる',
+		toString:function(){
+			return this.id+"";
+		}
 	},
-	{
+	4: {
 		id: 4,
-		name: '今日やる'
+		name: '今日やる',
+		toString:function(){
+			return this.id+"";
+		}
 	},
-	{
+	8: {
 		id: 8,
-		name: '今やる'
+		name: '今やる',
+		toString:function(){
+			return this.id+"";
+		}
 	},
-	{
+	16: {
 		id: 16,
-		name: '家でやる'
+		name: '家でやる',
+		toString:function(){
+			return this.id+"";
+		}
 	}
-]
+};
 
 const neo = {};

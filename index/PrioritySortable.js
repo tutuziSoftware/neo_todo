@@ -1,68 +1,63 @@
-neo.PrioritySortable = class PrioritySortable{
-	constructor(sort){
-		this.DB = {
-			NAME: "LocalTodoSortable",
-			KEY: 'PrioritySortable',
-		};
-		this.sort = [];
+(function(){
+	const DB_NAME = 'LocalTodoSortable';
+	const DB_KEY  = 'PrioritySortable';
 
-		if(Array.isArray(sort)){
-			sort.forEach((s)=>{
-				this.sort.push(s);
+	neo.PrioritySortable = class PrioritySortable{
+		constructor(sort){
+			this.db = localforage.createInstance({
+				name: DB_NAME
+			});
+
+			this.sort = sort;
+		}
+
+		getPriority(priority){
+			if(Array.isArray(this.sort[priority]) === false){
+				this.sort[priority] = [];
+			}
+
+			return this.sort[priority];
+		}
+
+		add(priority, todoId){
+			if(Array.isArray(this.sort[priority]) === false){
+				this.sort[priority] = [];
+			}
+
+			this.sort[priority].push(todoId);
+		}
+
+		save(){
+			return this.db.setItem(DB_KEY, this.sort);
+		}
+
+		clear(){
+			this.sort = {};
+		}
+
+		static new(){
+			const db = localforage.createInstance({
+				name: DB_NAME
+			});
+			const Class = this;
+
+			return new Promise((resolve, reject)=>{
+				db.getItem(DB_KEY)
+				.then(then)
+				.catch(function(){
+					//getItem的な失敗
+					reject();
+				})
+				.then(then);
+
+				function then(sort){
+					if(sort === null){
+						return db.setItem(DB_KEY, {});
+					}else{
+						resolve(new Class(sort));
+					}
+				}
 			});
 		}
-	}
-
-	forEach(f){
-		this.sort.forEach(f);
-	}
-
-	some(f){
-		return this.sort.some(f);
-	}
-
-	push(id){
-		this.sort.push(id);
-	}
-
-	indexOf(id){
-		return this.sort.indexOf(id);
-	}
-
-	splice(){
-		return this.sort.splice.apply(this.sort, arguments);
-	}
-
-	save(){
-		var db = localforage.createInstance({
-			name: this.DB.NAME
-		});
-
-		return db.setItem(this.DB.KEY, this.sort);
-	}
-
-	static new(){
-		const db = localforage.createInstance({
-			name: "LocalTodoSortable"
-		});
-		const Class = this;
-
-		return new Promise(function(resolve, reject){
-			db.getItem('PrioritySortable')
-			.then(then)
-			.catch(function(){
-				//getItem的な失敗
-				reject();
-			})
-			.then(then);
-
-			function then(sort){
-				if(sort === null){
-					return db.setItem('PrioritySortable', []);
-				}else{
-					resolve(new Class(sort));
-				}
-			}
-		});
-	}
-};
+	};
+})();

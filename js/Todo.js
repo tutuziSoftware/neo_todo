@@ -41,4 +41,12 @@ class Todo{
 
 		return db.setItem(id, todo);
 	}
+
+	static clear(){
+		var db = localforage.createInstance({
+			name: "localtodos"
+		});
+
+		return db.clear();
+	}
 }

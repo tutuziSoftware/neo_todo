@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="shortcut icon" type="image/png" href="../lib/jasmine-core/jasmine_favicon.png">
+	<link rel="stylesheet" type="text/css" href="../lib/jasmine-core/jasmine.css">
+
+	<script type="text/javascript" src="../lib/jasmine-core/jasmine.js"></script>
+	<script type="text/javascript" src="../lib/jasmine-core/jasmine-html.js"></script>
+	<script type="text/javascript" src="../lib/jasmine-core/boot.js"></script>
+	<script src="../../lib/localforage.js"></script>
+	<script src="../../index/const.js"></script>
+	<script src="../../js/Todo.js"></script>
+	<script src="../../index/PrioritySortable.js"></script>
+	<script>
+		describe('PrioritySortable', function(){
+			describe('優先度ごとに配列を取得する', function(){
+				var priority;
+
+				beforeAll(function(done){
+					neo.PrioritySortable.new().then(function(p){
+						priority = p;
+						priority.clear();
+						priority.save();
+						priority.add(TODO_PRIORITY[1], 'local:1');
+						priority.add(TODO_PRIORITY[2], 'local:2');
+						priority.add(TODO_PRIORITY[4], 'local:3');
+						priority.add(TODO_PRIORITY[8], 'local:4');
+						priority.add(TODO_PRIORITY[16], 'local:5');
+						priority.add(TODO_PRIORITY[16], 'local:6');
+
+						done();
+					});
+				});
+
+				it('1', function(){
+					const data = priority.getPriority(TODO_PRIORITY[1]);
+
+					expect(Array.isArray(data)).toBeTruthy();
+					expect(data.length).toBe(1);
+					expect(data[0]).toBe('local:1');
+				});
+
+				it('2', function(){
+					const data = priority.getPriority(TODO_PRIORITY[2]);
+
+					expect(Array.isArray(data)).toBeTruthy();
+					expect(data.length).toBe(1);
+					expect(data[0]).toBe('local:2');
+				});
+
+				it('4', function(){
+					const data = priority.getPriority(TODO_PRIORITY[4]);
+
+					expect(Array.isArray(data)).toBeTruthy();
+					expect(data.length).toBe(1);
+					expect(data[0]).toBe('local:3');
+				});
+
+				it('8', function(){
+					const data = priority.getPriority(TODO_PRIORITY[8]);
+
+					expect(Array.isArray(data)).toBeTruthy();
+					expect(data.length).toBe(1);
+					expect(data[0]).toBe('local:4');
+				});
+
+				it('16', function(){
+					const data = priority.getPriority(TODO_PRIORITY[16]);
+
+					expect(Array.isArray(data)).toBeTruthy();
+					expect(data.length).toBe(2);
+					expect(data[0]).toBe('local:5');
+					expect(data[1]).toBe('local:6');
+				});
+
+				it('データを永続化', function(done){
+					priority.save().then(function(){
+						const db = localforage.createInstance({
+							name: 'LocalTodoSortable'
+						});
+
+						db.getItem('PrioritySortable').then(function(data){
+							expect(typeof data).toBe('object');
+							expect(data[1][0]).toBe('local:1');
+
+							done();
+						});
+					});
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>

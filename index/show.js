@@ -28,6 +28,11 @@ neo.showUserSortableList = function(todos, sortTable, query){
 };
 
 
+neo.showPrioritySortableList = function(todos, sortTable, query){
+
+};
+
+
 function showTodoListHeaders(){
 	//headerの削除
 	TODO_HEADER_SETTINGS.forEach(function(headerSetting){
