@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="stylesheet" href="../../lib/framework7/framework7.ios.css">
+</head>
+<body>
+<div id="app">
+	<div class="page">
+		<!-- 頭のバー -->
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left"><a href="#" class="back">＜戻る</a></div>
+				<div class="title">新TODOアプリ</div>
+				<div class="right">
+				</div>
+			</div>
+		</div>
+
+		<!-- コンテンツ -->
+		<div class="page-content">
+			<div class="block-title">タスク名</div>
+			<div class="list">
+				<ul>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<div class="item-input-wrap">
+								<input type="text" id="title">
+								<span class="input-clear-button"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="block-title">所要時間(分)</div>
+			<div class="list">
+				<ul>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<div class="item-input-wrap">
+								<input type="text" id="lengthOfTime" validate pattern="[0-9]*" data-error-message="数値を入力してください">
+								<span class="input-clear-button"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="block-title">優先度</div>
+			<div class="list">
+				<ul>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<div class="item-input-wrap">
+								<select id="priority">
+								</select>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="block-title">日付</div>
+			<div class="list no-hairlines-md">
+				<ul>
+					<li>
+						<div class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-input-wrap">
+									<input type="text" readonly="readonly" id="date"/>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="block-title">ノート</div>
+			<div class="list">
+				<ul>
+					<li class="item-content item-input">
+						<div class="item-inner">
+							<div class="item-input-wrap">
+								<textarea class="resizable"></textarea>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="../../lib/framework7/framework7.js"></script>
+</body>
+</html>
