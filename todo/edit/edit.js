@@ -14,7 +14,8 @@ editPageInit.pageInits.push(function(){
 
 editPageInit.pageInits.push(function(){
 	//優先度の表示。HTMLと齟齬がないよう定数からHTMLを出す
-	TODO_PRIORITY.forEach(function(priority){
+	Object.keys(TODO_PRIORITY).forEach(function(key){
+		const priority = TODO_PRIORITY[key];
 		var optionTag = $('<option>');
 		optionTag.attr('value', priority.id)
 		optionTag.text(priority.name);
