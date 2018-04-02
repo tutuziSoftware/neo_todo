@@ -30,6 +30,20 @@ function listController(Sortable){
 			}
 
 			showList(todos, sortTable, query);
+
+			$('.template-check').on('change', function(){
+				//TODO チェックした/外したをDBに記録する
+				const id = $(this).parents('.todo').find('.template-id').val();
+				const checked = $(this).prop('checked');
+
+				Todo.find(id).then(function(todo){
+					todo.checked = checked;
+
+					return Todo.update(id, todo);
+				}).catch(function(){
+					debugger;
+				});
+			});
 		}).catch(function(){
 			debugger;
 		});
