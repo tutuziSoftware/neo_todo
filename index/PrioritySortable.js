@@ -2,12 +2,17 @@
 	const DB_NAME = 'LocalTodoSortable';
 	const DB_KEY  = 'PrioritySortable';
 
+	//TODO 三つ目のSortableが出てきたらAbstractSortableとか作った方がいいかもね
 	neo.PrioritySortable = class PrioritySortable{
 		constructor(sort){
 			this.db = localforage.createInstance({
 				name: DB_NAME
 			});
 
+			//{
+			//	'key':[],
+			//	'key':[],
+			// }
 			this.sort = sort;
 		}
 
@@ -17,6 +22,24 @@
 			}
 
 			return this.sort[priority];
+		}
+
+		isExist(todo){
+			const prioritysKeys = Object.keys(this.sort);
+
+			return prioritysKeys.some((key)=>{
+				const priority = this.sort[key];
+				return priority.some(function(id){
+					return todo.id === id;
+				});
+			});
+		}
+
+		/**
+		 * 優先度なしのTODOを登録します
+		 */
+		push(todoId){
+			this.add(TODO_PRIORITY[1], todoId);
 		}
 
 		add(priority, todoId){

@@ -8,18 +8,14 @@ function listController(Sortable){
 			//sortTableとtodosの整合性チェック
 			const check = Object.keys(todos).every(function(id){
 				const todo = todos[id];
-				return sortTable.some(function(id){
-					return todo.id === id;
-				});
+				return sortTable.isExist(todo);
 			});
 
 			//必要に応じてsortTableにデータを追加
 			if(check === false){
 				Object.keys(todos).forEach(function(id){
 					const todo = todos[id];
-					const exist = sortTable.some(function(id){
-						return todo.id === id;
-					});
+					const exist = sortTable.isExist(todo);
 
 					if(exist === false){
 						sortTable.push(id);
@@ -32,7 +28,7 @@ function listController(Sortable){
 			showList(todos, sortTable, query);
 
 			$('.template-check').on('change', function(){
-				//TODO チェックした/外したをDBに記録する
+				//チェックした/外したをDBに記録するイベント。showList実施後に設置しなければならないのでここに
 				const id = $(this).parents('.todo').find('.template-id').val();
 				const checked = $(this).prop('checked');
 
@@ -44,7 +40,8 @@ function listController(Sortable){
 					debugger;
 				});
 			});
-		}).catch(function(){
+		}).catch(function(e){
+			console.log(e);
 			debugger;
 		});
 	}).catch(function(){

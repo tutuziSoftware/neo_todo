@@ -17,8 +17,15 @@ neo.UserSortable = class UserSortable{
 		this.sort.forEach(f);
 	}
 
+	//UserSortable固有。
 	some(f){
 		return this.sort.some(f);
+	}
+
+	isExist(todo){
+		return this.sort.some(function(id){
+			return todo.id === id;
+		});
 	}
 
 	push(id){

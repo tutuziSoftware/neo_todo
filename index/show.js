@@ -30,7 +30,7 @@ neo.showUserSortableList = function(todos, sortTable, query){
 
 
 neo.showPrioritySortableList = function(todos, sortTable, query){
-
+	throw '優先順ソートの表示部分は未実装';
 };
 
 
