@@ -17,42 +17,46 @@ const TODO_HEADER_SETTINGS = [
 	},
 ];
 
-const TODO_PRIORITY = {
-	1: {
-		id: 1,
-		name: '優先順なし',
-		toString:function(){
+
+const TODO_PRIORITY = (function(){
+	/**
+	 * TODO_PRIORITYの定数用クラス
+	 */
+	class TodoPriorityConst{
+		constructor(id, name){
+			if(Array.isArray(id)){
+				this._id = id[0];
+				this.idList = id;
+			}else{
+				this._id = id;
+				this.idList = [id];
+			}
+
+			this.name = name;
+		}
+
+		get id(){
+			return this._id;
+		}
+
+		toString(){
 			return this.id+"";
 		}
-	},
-	2: {
-		id: 2,
-		name: 'いつかやる',
-		toString:function(){
-			return this.id+"";
-		}
-	},
-	4: {
-		id: 4,
-		name: '今日やる',
-		toString:function(){
-			return this.id+"";
-		}
-	},
-	8: {
-		id: 8,
-		name: '今やる',
-		toString:function(){
-			return this.id+"";
-		}
-	},
-	16: {
-		id: 16,
-		name: '家でやる',
-		toString:function(){
-			return this.id+"";
+
+		equal(priorityId){
+			return this.idList.some(function(id){
+				return id == priorityId;
+			});
 		}
 	}
-};
+
+	return {
+		1: new TodoPriorityConst([1, void 0], '優先順なし'),
+		2: new TodoPriorityConst(2, 'いつかやる'),
+		4: new TodoPriorityConst(4, '今日やる'),
+		8: new TodoPriorityConst(8, '今やる'),
+		16: new TodoPriorityConst(16, '家でやる'),
+	};
+})();
 
 const neo = {};

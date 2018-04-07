@@ -30,7 +30,35 @@ neo.showUserSortableList = function(todos, sortTable, query){
 
 
 neo.showPrioritySortableList = function(todos, sortTable, query){
-	throw '優先順ソートの表示部分は未実装';
+	$(query + " *").remove();
+
+	//todoを優先順で分割
+	var priorityTodos = {};
+	Object.keys(TODO_PRIORITY).forEach(function(priorityId){
+		const priority = TODO_PRIORITY[priorityId];
+
+		priorityTodos[priorityId] = Object.keys(todos).filter(function(key){
+			var todo = todos[key];
+			return priority.equal(todo.priority);
+		}).map(function(key){
+			return todos[key];
+		});
+	});
+
+	//表示
+	Object.keys(TODO_PRIORITY).forEach(function(key){
+		//ヘッダ表示
+		var $header = $($("#todo_header_template").text());
+		var headerName = TODO_PRIORITY[key].name;
+		$header.text(headerName).appendTo(query);
+
+		//todo表示
+		priorityTodos[key].forEach(function(priority){
+			var $todo = $($("#todo_template").text());
+			$todo.find('.template-title').text(priority.title);
+			$todo.appendTo(query);
+		});
+	});
 };
 
 

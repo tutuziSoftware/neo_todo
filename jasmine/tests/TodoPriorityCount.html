@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="shortcut icon" type="image/png" href="../lib/jasmine-core/jasmine_favicon.png">
+	<link rel="stylesheet" type="text/css" href="../lib/jasmine-core/jasmine.css">
+
+	<script type="text/javascript" src="../lib/jasmine-core/jasmine.js"></script>
+	<script type="text/javascript" src="../lib/jasmine-core/jasmine-html.js"></script>
+	<script type="text/javascript" src="../lib/jasmine-core/boot.js"></script>
+	<script src="../../lib/localforage.js"></script>
+	<script src="../../index/const.js"></script>
+	<script>
+		describe('TodoPriorityConst', function(){
+			it('1', function(){
+				var id1 = TODO_PRIORITY[1];
+
+				expect(id1.id).toBe(1);
+				expect(id1.name).toBe("優先順なし");
+				expect(id1.equal(undefined)).toBeTruthy();
+				expect(id1.equal(1)).toBeTruthy();
+			});
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>
