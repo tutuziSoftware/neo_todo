@@ -6,13 +6,6 @@ function editPageInit(e){
 editPageInit.pageInits = [];
 
 editPageInit.pageInits.push(function(){
-	//日付選択を可能にするおまじない
-	app.calendar.create({
-		inputEl: '#date',
-	});
-});
-
-editPageInit.pageInits.push(function(){
 	//優先度の表示。HTMLと齟齬がないよう定数からHTMLを出す
 	Object.keys(TODO_PRIORITY).forEach(function(key){
 		const priority = TODO_PRIORITY[key];
