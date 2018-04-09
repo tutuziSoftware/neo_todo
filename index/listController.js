@@ -14,8 +14,7 @@ function listController(Sortable){
 			//必要に応じてsortTableにデータを追加
 			if(check === false){
 				Object.keys(todos).forEach(function(id){
-					const todo = todos[id];
-					const exist = sortTable.isExist(todo);
+					const exist = sortTable.isExist(id);
 
 					if(exist === false){
 						sortTable.push(id);

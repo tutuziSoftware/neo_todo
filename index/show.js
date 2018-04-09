@@ -62,6 +62,11 @@ neo.showPrioritySortableList = function(todos, sortTable, query){
 };
 
 
+neo.showNeoSortableList = function(){
+	throw "showNeoSortableListが未実装だよ";
+}
+
+
 function showTodoListHeaders(){
 	//headerの削除
 	TODO_HEADER_SETTINGS.forEach(function(headerSetting){

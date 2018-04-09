@@ -42,7 +42,7 @@
 					<a href="#tab-2" class="tab-link">
 						<i class="icon f7-icons ios-only">list</i>
 						<i class="icon material-icons md-only">list</i>
-						<span class="tabbar-label">おすすめ</span>
+						<span class="tabbar-label">時間順</span>
 					</a>
 					<a href="#tab-3" class="tab-link">
 						<i class="icon f7-icons ios-only">sort</i>
@@ -52,7 +52,7 @@
 					<a href="#tab-4" class="tab-link">
 						<i class="icon f7-icons ios-only">alarm</i>
 						<i class="icon material-icons md-only">alarm</i>
-						<span class="tabbar-label">時間順</span>
+						<span class="tabbar-label">おすすめ</span>
 					</a>
 				</div>
 			</div>
@@ -68,9 +68,10 @@
 					</div>
 				</div>
 				<div id="tab-2" class="page-content tab">
-					<div class="block">
-						<p>Tab 2 content</p>
-						...
+					<div id="neo_list" class="block list">
+						<div class="list-group">
+							<ul id="NeoSortable"></ul>
+						</div>
 					</div>
 				</div>
 				<div id="tab-3" class="page-content tab">
@@ -125,8 +126,10 @@
 <script src="lib/localforage.js"></script>
 <script src="js/Todo.js"></script>
 <script src="index/const.js"></script>
+<script src="index/AbstractSortable.js"></script>
 <script src="index/UserSortable.js"></script>
 <script src="index/PrioritySortable.js"></script>
+<script src="index/NeoSortable.js"></script>
 <script src="index/show.js"></script>
 <script src="index/tabShow.js"></script>
 <script src="index/listController.js"></script>

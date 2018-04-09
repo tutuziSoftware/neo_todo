@@ -22,9 +22,9 @@ neo.UserSortable = class UserSortable{
 		return this.sort.some(f);
 	}
 
-	isExist(todo){
+	isExist(argId){
 		return this.sort.some(function(id){
-			return todo.id === id;
+			return argId === id;
 		});
 	}
 

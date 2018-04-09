@@ -24,13 +24,13 @@
 			return this.sort[priority];
 		}
 
-		isExist(todo){
+		isExist(argId){
 			const prioritysKeys = Object.keys(this.sort);
 
 			return prioritysKeys.some((key)=>{
 				const priority = this.sort[key];
 				return priority.some(function(id){
-					return todo.id === id;
+					return argId === id;
 				});
 			});
 		}
