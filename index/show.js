@@ -62,8 +62,28 @@ neo.showPrioritySortableList = function(todos, sortTable, query){
 };
 
 
-neo.showNeoSortableList = function(){
-	throw "showNeoSortableListが未実装だよ";
+neo.showNeoSortableList = function(todos, sortTable, query){
+	$(query + " *").remove();
+
+	sortTable.forEach(function(id){
+		if(todos[id]){
+			show(todos[id]);
+			delete todos[id];
+		}
+	});
+
+	function show(todo){
+		var todoTemplate = $($('#todo_template').text());
+		todoTemplate.find('.template-title').text(todo.title);
+		todoTemplate.find('.template-id').val(todo.id);
+		todoTemplate.find('.template-url').attr('href', todoTemplate.find('.template-url').attr('href')+'?id='+todo.id);
+		todoTemplate.find('.template-check').attr('checked', todo.checked);
+
+		//TODO ここで#now_listの直後に要素を追加してるので逆に表示される
+		//     つまるところソート順が変わるとここの実装方式が変わるので、あまり深追いしなくて良いかも
+		//$('#todo_list').find('#now_list').after(todoTemplate);
+		todoTemplate.appendTo(query);
+	}
 }
 
 

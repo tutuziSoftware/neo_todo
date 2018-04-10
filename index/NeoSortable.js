@@ -21,5 +21,9 @@
 		push(id){
 			this.sort.push(id);
 		}
+
+		forEach(f){
+			return this.sort.forEach(f);
+		}
 	};
 })();
