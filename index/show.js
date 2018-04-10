@@ -63,27 +63,37 @@ neo.showPrioritySortableList = function(todos, sortTable, query){
 
 
 neo.showNeoSortableList = function(todos, sortTable, query){
+	//残り時間算出
+	const hour23 = (function(){
+		const hour23 = new Date();
+		hour23.setHours(23);
+		hour23.setMinutes(0);
+		hour23.setSeconds(0);
+		return hour23;
+	})();
+	var remaining = Math.floor((hour23.getTime() - Date.now()) / 60000);
+
 	$(query + " *").remove();
 
 	sortTable.forEach(function(id){
-		if(todos[id]){
-			show(todos[id]);
-			delete todos[id];
+		const todo = todos[id];
+
+		if(todo){
+			var todoTemplate = $($('#todo_template').text());
+			todoTemplate.find('.template-title').text(todo.title);
+			todoTemplate.find('.template-id').val(todo.id);
+			todoTemplate.find('.template-url').attr('href', todoTemplate.find('.template-url').attr('href')+'?id='+todo.id);
+			todoTemplate.find('.template-check').attr('checked', todo.checked);
+
+			remaining -= todo.lengthOfTime;
+
+			if(remaining - todo.lengthOfTime < 0){
+				todoTemplate.find('.template-title').addClass('can_not_today');
+			}
+
+			todoTemplate.appendTo(query);
 		}
 	});
-
-	function show(todo){
-		var todoTemplate = $($('#todo_template').text());
-		todoTemplate.find('.template-title').text(todo.title);
-		todoTemplate.find('.template-id').val(todo.id);
-		todoTemplate.find('.template-url').attr('href', todoTemplate.find('.template-url').attr('href')+'?id='+todo.id);
-		todoTemplate.find('.template-check').attr('checked', todo.checked);
-
-		//TODO ここで#now_listの直後に要素を追加してるので逆に表示される
-		//     つまるところソート順が変わるとここの実装方式が変わるので、あまり深追いしなくて良いかも
-		//$('#todo_list').find('#now_list').after(todoTemplate);
-		todoTemplate.appendTo(query);
-	}
 }
 
 
