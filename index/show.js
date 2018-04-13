@@ -75,6 +75,15 @@ neo.showNeoSortableList = function(todos, sortTable, query){
 
 	$(query + " *").remove();
 
+	var isTimeout = false;
+	var isToday = true;
+	var isNoTimeSetting = true;
+
+	$($("#todo_header_template").text()).text('今日やる').attr('id', 'today').appendTo(query);
+	$($("#todo_header_template").text()).text('時間未指定').attr("id", "no_time_setting").appendTo(query);
+	$($("#todo_header_template").text()).text('タイムアウト').attr('id', 'timeout').appendTo(query);
+	$($("#todo_header_template").text()).text('明日').attr('id', 'tomorrow').appendTo(query);
+
 	sortTable.forEach(function(id){
 		const todo = todos[id];
 
@@ -87,11 +96,20 @@ neo.showNeoSortableList = function(todos, sortTable, query){
 
 			remaining -= todo.lengthOfTime;
 
-			if(remaining - todo.lengthOfTime < 0){
-				todoTemplate.find('.template-title').addClass('can_not_today');
+			if(todo.lengthOfTime === ""){
+				$("#no_time_setting").after(todoTemplate);
+				return;
 			}
 
-			todoTemplate.appendTo(query);
+			if(remaining >= 0 && isToday){
+				$("#today").after(todoTemplate);
+				return;
+			}
+
+			if(remaining < 0 && isTimeout === false){
+				$("#timeout").after(todoTemplate);
+				return;
+			}
 		}
 	});
 }

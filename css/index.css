@@ -2,20 +2,20 @@
 	color: black;
 }
 
-/* 過去のTODOは赤字 */
-#past_list ~ li .todo_text {
-	color: red;
-}
-
 #now_list ~ li .todo_text,
-#today_list ~ li .todo_text{
+#today_list ~ li .todo_text,
+#today ~ li .template-title{
 	color: green;
 }
 
-#future_list ~ li .todo_text{
+#future_list ~ li .todo_text,
+#no_time_setting ~ li .template-title{
 	color: black;
 }
 
-.can_not_today{
+/* 過去のTODOは赤字 */
+#past_list ~ li .todo_text,
+#timeout ~ li .template-title,
+#tomorrow ~ li .template-title{
 	color: red;
 }
