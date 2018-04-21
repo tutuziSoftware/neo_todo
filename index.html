@@ -34,7 +34,12 @@
 			<!-- 下のバー -->
 			<div class="toolbar tabbar-labels">
 				<div class="toolbar-inner">
-					<a href="#tab-1" class="tab-link tab-link-active">
+					<a href="#tab-4" class="tab-link tab-link-active">
+						<i class="icon f7-icons ios-only">alarm</i>
+						<i class="icon material-icons md-only">alarm</i>
+						<span class="tabbar-label">タグ順</span>
+					</a>
+					<a href="#tab-1" class="tab-link">
 						<i class="icon f7-icons ios-only">list</i>
 						<i class="icon material-icons md-only">list</i>
 						<span class="tabbar-label">てきとう</span>
@@ -49,17 +54,20 @@
 						<i class="icon material-icons md-only">sort</i>
 						<span class="tabbar-label">優先順</span>
 					</a>
-					<a href="#tab-4" class="tab-link">
-						<i class="icon f7-icons ios-only">alarm</i>
-						<i class="icon material-icons md-only">alarm</i>
-						<span class="tabbar-label">おすすめ</span>
-					</a>
 				</div>
 			</div>
 
 			<!-- ここに色々置く -->
 			<div class="tabs">
-				<div id="tab-1" class="page-content tab tab-active">
+				<div id="tab-4" class="page-content tab tab-active">
+					<div id="tag_list" class="list contacts-list sortable">
+						<div class="list-group">
+							<ul id="TagSortable">
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="tab-1" class="page-content tab">
 					<div id="sortable_list" class="list contacts-list sortable">
 						<div class="list-group">
 							<ul id="UserSortable">
@@ -80,12 +88,6 @@
 							<ul id="PrioritySortable">
 							</ul>
 						</div>
-					</div>
-				</div>
-				<div id="tab-4" class="page-content tab">
-					<div class="block">
-						<p>Tab 4 content</p>
-						...
 					</div>
 				</div>
 			</div>
@@ -130,6 +132,7 @@
 <script src="index/UserSortable.js"></script>
 <script src="index/PrioritySortable.js"></script>
 <script src="index/NeoSortable.js"></script>
+<script src="index/TagSortable.js"></script>
 <script src="index/show.js"></script>
 <script src="index/tabShow.js"></script>
 <script src="index/listController.js"></script>

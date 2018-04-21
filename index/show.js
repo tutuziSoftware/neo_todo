@@ -62,6 +62,17 @@ neo.showPrioritySortableList = function(todos, sortTable, query){
 };
 
 
+neo.showTagSortableList = function(todos, sortTable, query){
+	debugger;
+
+	//TODO sortTableの時点でタグとその順番を規定する
+
+	//TODO ヘッダ生成
+	//TODO ヘッダごとにタスクを並べる
+	//TODO タスクの順位変更
+};
+
+
 neo.showNeoSortableList = function(todos, sortTable, query){
 	//残り時間算出
 	const hour23 = (function(){

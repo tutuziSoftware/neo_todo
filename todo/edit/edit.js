@@ -39,7 +39,7 @@ function beforeOut(e){
 	const editTodo = {};
 	editTodo.id = e.route.query.id;
 	e.$el.find('input,select').each(function(index, input){
-		editTodo[input.id] = input.value;
+		editTodo[input.id] = $(this).val();
 	});
 
 	//もしTODOリストが更新されなかった場合は、ここの非同期保存が機能してないんだと予想される
