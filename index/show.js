@@ -65,11 +65,8 @@ neo.showPrioritySortableList = function(todos, sortTable, query){
 neo.showTagSortableList = function(todos, sortTable, query){
 	debugger;
 
-	//TODO sortTableの時点でタグとその順番を規定する
-
 	//TODO ヘッダ生成
 	//TODO ヘッダごとにタスクを並べる
-	//TODO タスクの順位変更
 };
 
 
