@@ -70,6 +70,8 @@ neo.showTagSortableList = function(todos, sortTable, query){
 		$header.addClass(groupName).text(groupName).appendTo(query);
 	});
 
+	//TODO タグごとにはなっていない。todos[0].tagでデータを分ける必要がある
+	//TODO 分けたデータ + sortTableの並び順で表示
 	//ヘッダごとにタスクを並べる
 	groupNames.forEach(function(groupName){
 		const tasks = sortTable.getGroup(groupName);
