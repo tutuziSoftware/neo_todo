@@ -76,6 +76,10 @@
 			return this.sort[group];
 		}
 
+		getGroupNames(){
+			return Object.keys(this.sort);
+		}
+
 		isExist(argId){
 			const groupKeysList = Object.keys(this.sort);
 

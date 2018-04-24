@@ -63,10 +63,25 @@ neo.showPrioritySortableList = function(todos, sortTable, query){
 
 
 neo.showTagSortableList = function(todos, sortTable, query){
-	debugger;
+	//ヘッダ生成
+	const groupNames = sortTable.getGroupNames();
+	groupNames.forEach(function(groupName){
+		const $header = $($("#todo_header_template").text());
+		$header.addClass(groupName).text(groupName).appendTo(query);
+	});
 
-	//TODO ヘッダ生成
-	//TODO ヘッダごとにタスクを並べる
+	//ヘッダごとにタスクを並べる
+	groupNames.forEach(function(groupName){
+		const tasks = sortTable.getGroup(groupName);
+		tasks.forEach(function(id){
+			const todo = todos[id];
+			const $todo = $($("#todo_template").text());
+			$todo.find('.template-title').text(todo.title);
+			$("."+groupName).after($todo);
+		});
+	});
+
+	//TODO 時間(明日とか明後日とか)はどう実装したものか……
 };
 
 
