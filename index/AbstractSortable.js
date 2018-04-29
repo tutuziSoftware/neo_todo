@@ -83,6 +83,14 @@
 			return {};
 		};
 
+		/**
+		 * このクラスで使用するキー名を配列で返します。
+		 * 配列の順番がgroupIdとして扱われます。
+		 */
+		static getGroupNames(){
+			throw "配列でグループを定義してね";
+		}
+
 		getGroup(group){
 			if(Array.isArray(this.sort[group]) === false){
 				this.sort[group] = [];
@@ -123,14 +131,6 @@
 
 		clear(){
 			this.sort = {};
-		}
-
-		/**
-		 * このクラスで使用するキー名を配列で返します。
-		 * 配列の順番がgroupIdとして扱われます。
-		 */
-		static getGroupNames(){
-			throw "配列でグループを定義してね";
 		}
 	};
 })();
