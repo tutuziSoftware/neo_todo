@@ -64,6 +64,21 @@
 	 * @type {neo.AbstractGroupSortable}
 	 */
 	neo.AbstractGroupSortable = class AbstractGroupSortable extends neo.AbstractSortable{
+		/**
+		 * AbstractGroupSortable#push()を実行した時に割り当てられるキー名です。
+		 * このキー名は継承先のクラスで書き換えることができます。
+		 * @returns {number}
+		 * @constructor
+		 */
+		static DEFAULT_PUSH_KEY_NAME(){
+			return -1;
+		};
+
+		/**
+		 * DBにデータがなかった場合、デフォルトで入る値です。
+		 * @returns {{}}
+		 * @constructor
+		 */
 		static FIRST_DB_DATA(){
 			return {};
 		};
@@ -74,10 +89,6 @@
 			}
 
 			return this.sort[group];
-		}
-
-		getGroupNames(){
-			return Object.keys(this.sort);
 		}
 
 		isExist(argId){
@@ -95,9 +106,7 @@
 		 * グループなしのTODOを登録します
 		 */
 		push(todoId){
-			const DEFAULT_GROUP = this._getConstGroups()[0];
-
-			this.add(DEFAULT_GROUP, todoId);
+			this.add(this.constructor.DEFAULT_PUSH_KEY_NAME(), todoId);
 		}
 
 		add(priority, todoId){
@@ -116,7 +125,11 @@
 			this.sort = {};
 		}
 
-		_getConstGroups(){
+		/**
+		 * このクラスで使用するキー名を配列で返します。
+		 * 配列の順番がgroupIdとして扱われます。
+		 */
+		static getGroupNames(){
 			throw "配列でグループを定義してね";
 		}
 	};

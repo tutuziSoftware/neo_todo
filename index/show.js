@@ -63,25 +63,53 @@ neo.showPrioritySortableList = function(todos, sortTable, query){
 
 
 neo.showTagSortableList = function(todos, sortTable, query){
+	$(query + " *").remove();
+
 	//ヘッダ生成
-	const groupNames = sortTable.getGroupNames();
-	groupNames.forEach(function(groupName){
+	const groupNames = sortTable.constructor.getGroupNames();
+	groupNames.forEach(function(groupName, id){
 		const $header = $($("#todo_header_template").text());
-		$header.addClass(groupName).text(groupName).appendTo(query);
+		$header.attr("id", "tag" + id).text(groupName).appendTo(query);
 	});
 
-	//TODO タグごとにはなっていない。todos[0].tagでデータを分ける必要がある
-	//TODO 分けたデータ + sortTableの並び順で表示
-	//ヘッダごとにタスクを並べる
-	groupNames.forEach(function(groupName){
-		const tasks = sortTable.getGroup(groupName);
-		tasks.forEach(function(id){
-			const todo = todos[id];
-			const $todo = $($("#todo_template").text());
+	//データをtagIdごとに分類
+	const sortTodos = (function(){
+		const sortTodos = {};
+		sortTable.constructor.getGroupNames().forEach(function(_, id){
+			sortTodos[id] = [];
+		});
+
+		return sortTodos;
+	})();
+	Object.keys(todos).forEach(function(id){
+		const todo = todos[id];
+		const tagId = todo.tag;
+
+		if(tagId === undefined || tagId.length === 0){
+			sortTodos[neo.TagSortable.DEFAULT_PUSH_KEY_NAME()].push(todo);
+		}else{
+			tagId.forEach(function(tagId){
+				sortTodos[tagId].push(todo);
+			});
+		}
+	});
+
+	//表示
+	Object.keys(sortTodos).forEach(function(tagId){
+		const sortedTodos = sortTodos[tagId];
+
+		sortedTodos.forEach(function(todo){
+			const $todo = $($('#todo_template').text());
+			$todo.find('.template-id').val(todo.id);
 			$todo.find('.template-title').text(todo.title);
-			$("."+groupName).after($todo);
+			$todo.find('.template-url').attr('href', $todo.find('.template-url').attr('href')+'?id='+todo.id);
+			$todo.find('.template-check').attr('checked', todo.checked);
+
+			$("#tag" + tagId).after($todo);
 		});
 	});
+
+	//TODO 分けたデータ + sortTableの並び順で表示
 
 	//TODO 時間(明日とか明後日とか)はどう実装したものか……
 };
