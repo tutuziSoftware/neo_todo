@@ -69,7 +69,7 @@ neo.showTagSortableList = function(todos, sortTable, query){
 	const groupNames = sortTable.constructor.getGroupNames();
 	groupNames.forEach(function(groupName, id){
 		const $header = $($("#todo_header_template").text());
-		$header.attr("id", "tag" + id).text(groupName).appendTo(query);
+		$header.attr("id", "tag_" + id).text(groupName).appendTo(query);
 	});
 
 	//表示
@@ -79,11 +79,12 @@ neo.showTagSortableList = function(todos, sortTable, query){
 
 			const $todo = $($('#todo_template').text());
 			$todo.find('.template-id').val(todo.id);
+			$todo.find('.template-group-id').val(tagId);
 			$todo.find('.template-title').text(todo.title);
 			$todo.find('.template-url').attr('href', $todo.find('.template-url').attr('href')+'?id='+todo.id);
 			$todo.find('.template-check').attr('checked', todo.checked);
 
-			$("#tag" + tagId).after($todo);
+			$("#tag_" + tagId).after($todo);
 		});
 	});
 
