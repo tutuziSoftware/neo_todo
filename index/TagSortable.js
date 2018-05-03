@@ -18,4 +18,25 @@ neo.TagSortable = class TagSortable extends neo.AbstractGroupSortable{
 			"夜",
 		];
 	}
+
+	/**
+	 * グループなしのTODOを登録します。
+	 * タグの場合、実データからタグ情報をこの関数で取得します。
+	 */
+	push(todoId){
+		Todo.find(todoId).then((todo)=>{
+			if(todo.tag === void 0 || todo.tag.length === 0){
+				this.add(this.constructor.DEFAULT_PUSH_KEY_NAME(), todoId);
+			}else{
+				todo.tag.forEach((tagId)=>{
+					this.add(tagId, todoId);
+				});
+			}
+
+			//効率悪いし振る舞い的によくないけど、listController.jsでの使用は非同期を考慮していないのでここでsave
+			this.save();
+		}).catch(function(){
+			throw "そんなtodoIdはないよ";
+		});
+	}
 };
