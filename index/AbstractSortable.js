@@ -9,8 +9,25 @@
 			throw 'isExistが未実装だよ';
 		}
 
-		push(){
+		push(todoId){
 			throw 'pushが未実装だよ';
+		}
+
+		/**
+		 * そのtodoIdがどの位置に存在するかを返します。
+		 * @param arg {
+		 * 				todoId: "" //必須値
+		 * 				groupId: "" //オプション。Sortableの種類によっては必要になります。
+		 * 			}
+		 */
+		indexOf(arg){
+			console.log("indexOfが未実装だよ");
+			throw "indexOfが未実装だよ";
+		}
+
+		splice(){
+			console.log("spliceが未実装だよ");
+			throw "spliceが未実装だよ";
 		}
 
 		save(){
@@ -119,6 +136,13 @@
 					return argId === id;
 				});
 			});
+		}
+
+		indexOf(args){
+			const todoId = args.todoId;
+			const groupId = args.groupId;
+
+			return this.sort[groupId].indexOf(todoId);
 		}
 
 		/**
