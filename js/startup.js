@@ -34,3 +34,4 @@ var mainView = app.views.create('.view-main');
 
 app.sortable.enable('#sortable_list');
 app.sortable.enable('#priority_list');
+app.sortable.enable('#tag_list');
