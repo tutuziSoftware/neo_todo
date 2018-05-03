@@ -99,6 +99,17 @@
 			return this.sort[group];
 		}
 
+		/**
+		 * このメソッドはキーと格納された値を1単位としてデータを全て返します。
+		 * @param callback
+		 */
+		forEachByGroup(callback){
+			Object.keys(this.sort).forEach((groupId)=>{
+				const group = this.sort[groupId];
+				callback(group, groupId);
+			});
+		}
+
 		isExist(argId){
 			const groupKeysList = Object.keys(this.sort);
 

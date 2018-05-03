@@ -72,33 +72,11 @@ neo.showTagSortableList = function(todos, sortTable, query){
 		$header.attr("id", "tag" + id).text(groupName).appendTo(query);
 	});
 
-	//データをtagIdごとに分類
-	const sortTodos = (function(){
-		const sortTodos = {};
-		sortTable.constructor.getGroupNames().forEach(function(_, id){
-			sortTodos[id] = [];
-		});
-
-		return sortTodos;
-	})();
-	Object.keys(todos).forEach(function(id){
-		const todo = todos[id];
-		const tagId = todo.tag;
-
-		if(tagId === undefined || tagId.length === 0){
-			sortTodos[neo.TagSortable.DEFAULT_PUSH_KEY_NAME()].push(todo);
-		}else{
-			tagId.forEach(function(tagId){
-				sortTodos[tagId].push(todo);
-			});
-		}
-	});
-
 	//表示
-	Object.keys(sortTodos).forEach(function(tagId){
-		const sortedTodos = sortTodos[tagId];
+	sortTable.forEachByGroup(function(todoIds, tagId){
+		todoIds.forEach(function(todoId){
+			const todo = todos[todoId];
 
-		sortedTodos.forEach(function(todo){
 			const $todo = $($('#todo_template').text());
 			$todo.find('.template-id').val(todo.id);
 			$todo.find('.template-title').text(todo.title);
@@ -109,9 +87,7 @@ neo.showTagSortableList = function(todos, sortTable, query){
 		});
 	});
 
-	//TODO 分けたデータ + sortTableの並び順で表示
-
-	//TODO 時間(明日とか明後日とか)はどう実装したものか……
+	//TODO 時間(明日とか明後日とか)はどう実装したものか……これもタグ管理する？
 };
 
 
