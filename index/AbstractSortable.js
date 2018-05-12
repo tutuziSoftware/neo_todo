@@ -30,6 +30,18 @@
 			throw "spliceが未実装だよ";
 		}
 
+		/**
+		 * データの位置を変更します
+		 * @param args {
+		 * 					from:{ name:"", index:0 },
+		 * 					to:{ name:"", index:0 }
+		 * 				}
+		 */
+		move(args){
+			console.log("moveが未実装だよ");
+			throw "moveが未実装だよ";
+		}
+
 		save(){
 			if(this.sort === void 0) throw 'Sortable.sortを実装するか、save()を書き換えてね';
 
@@ -108,6 +120,18 @@
 			throw "配列でグループを定義してね";
 		}
 
+		move(args){
+			const fromGroupId = args.from.groupId;
+			const fromIndex = args.from.index;
+			const toGroupId = args.to.groupId;
+			const toIndex = args.to.index;
+
+			const todoId = this.sort[fromGroupId][fromIndex];
+
+			this.sort[fromGroupId].splice(fromIndex, 1);
+			this.sort[toGroupId].splice(toIndex, 0, todoId);
+		}
+
 		getGroup(group){
 			if(Array.isArray(this.sort[group]) === false){
 				this.sort[group] = [];
@@ -122,7 +146,7 @@
 		 */
 		forEachByGroup(callback){
 			Object.keys(this.sort).forEach((groupId)=>{
-				const group = this.sort[groupId];
+				const group = this.sort[groupId].concat();
 				callback(group, groupId);
 			});
 		}

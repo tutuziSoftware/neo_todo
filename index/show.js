@@ -74,7 +74,8 @@ neo.showTagSortableList = function(todos, sortTable, query){
 
 	//表示
 	sortTable.forEachByGroup(function(todoIds, tagId){
-		todoIds.forEach(function(todoId){
+		//ヘッダの直下の兄弟要素としてDOMを生成するのでするのでreverseしないといけない
+		todoIds.reverse().forEach(function(todoId){
 			const todo = todos[todoId];
 
 			const $todo = $($('#todo_template').text());

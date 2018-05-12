@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="shortcut icon" type="image/png" href="../lib/jasmine-core/jasmine_favicon.png">
+	<link rel="stylesheet" type="text/css" href="../lib/jasmine-core/jasmine.css">
+
+	<script type="text/javascript" src="../lib/jasmine-core/jasmine.js"></script>
+	<script type="text/javascript" src="../lib/jasmine-core/jasmine-html.js"></script>
+	<script type="text/javascript" src="../lib/jasmine-core/boot.js"></script>
+	<script src="../../lib/localforage.js"></script>
+	<script src="../../index/const.js"></script>
+	<script src="../../js/Todo.js"></script>
+	<script src="../../index/AbstractSortable.js"></script>
+	<script src="../../index/TagSortable.js"></script>
+	<script>
+		describe('TagSortable', function(){
+			var tags;
+
+			beforeEach(function(done){
+				neo.TagSortable.new().then(function(p){
+					tags = p;
+					tags.clear();
+					tags.save().then(function(){
+						tags.add(0, 'local:tag0-1');
+						tags.add(0, 'local:tag0-2');
+						tags.add(1, 'local:2');
+						tags.add(2, 'local:3');
+						tags.add(3, 'local:4');
+						tags.add(4, 'local:5');
+						tags.add(5, 'local:6');
+
+						done();
+					});
+				});
+			});
+
+			afterEach(function(){
+				tags.clear();
+				tags.save();
+			});
+
+			it('タグ内での入れ替え', function(){
+				const tagId = 0;
+
+				tags.move({
+					from:{
+						groupId:tagId,
+						index:0
+					},
+					to:{
+						groupId:tagId,
+						index:1
+					}
+				});
+
+				expect(tags.getGroup(tagId)[0]).toBe('local:tag0-2');
+				expect(tags.getGroup(tagId)[1]).toBe('local:tag0-1');
+			});
+
+			it('タグを超えた入れ替え', function(){
+				tags.move({
+					from:{
+						groupId:0,
+						index:0
+					},
+					to:{
+						groupId:1,
+						index:1
+					}
+				});
+
+				expect(tags.getGroup(0)[0]).toBe('local:tag0-2');
+				expect(tags.getGroup(1)[0]).toBe('local:2');
+				expect(tags.getGroup(1)[1]).toBe('local:tag0-1');
+			});
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>
