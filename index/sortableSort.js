@@ -1,7 +1,18 @@
 function sortableSort(html, move){
 	//headerが存在した時、リストの相対位置を求める
-	const headerLength = $(html).prevAll('li[id$="_list"],li[id^="tag_"]').length;
-	const to = move.to - headerLength;
+	const to = (function(){
+		const prevLis = $(html).prevAll('li');
+		var count = 0;
+		prevLis.each(function(){
+			if(this.id === ""){
+				count++
+			}else{
+				return false;
+			}
+		});
+
+		return count;
+	})();
 	const todoId = $(html).find('.template-id').val();
 	const fromGroupId = $(html).find('.template-group-id').val();
 	const toGroupId = (function(){
