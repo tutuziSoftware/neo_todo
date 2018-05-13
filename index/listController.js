@@ -31,6 +31,9 @@ function listController(Sortable){
 				const id = $(this).parents('.todo').find('.template-id').val();
 				const checked = $(this).prop('checked');
 
+				//同じTODOが複数表示されている場合は一括でチェックを付け外し
+				$(".template-id[value='"+id+"']").parents(".todo").find(".template-check").prop("checked", checked);
+
 				Todo.find(id).then(function(todo){
 					todo.checked = checked;
 
